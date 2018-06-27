@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kbs.plus.admin.introduction.mapper.BroadMapper">
+
+	<insert id="broadInsert" parameterType="hashmap">
+		INSERT INTO tb_introduction_broadcast
+		(
+		standard_date,
+		division,
+		reg_id)
+		VALUES
+		(
+		#{standard_date},
+		#{division},
+		#{reg_id})
+	</insert>	
+	
+	<select id="broadSelect" resultType="hashmap" parameterType="hashmap">
+	SELECT seq,
+	    standard_date,
+	    division,
+	    reg_date,
+	    reg_id,
+	    del_yn
+	FROM tb_introduction_broadcast
+	where 1=1 
+	and del_yn = 'N'
+	and division = #{division}	
+	</select>
+	
+	<update id="broadUpdate" parameterType="hashmap">
+	UPDATE tb_introduction_broadcast
+	SET
+	del_yn = 'Y'
+	WHERE division = #{division}
+	</update>
+	
+	<select id="broadCodeSelect" resultType="hashmap" parameterType="hashmap">
+	SELECT seq,
+	    division,
+	    contents,
+	    code,
+	    image_num
+	FROM tb_introduction_broadcast_code
+	where 1=1 
+	<if test="division != null and division != '' ">
+	and division = #{division}
+	</if>
+	</select>
+	
+	<insert id="broadFileInsert" parameterType="hashmap">
+	INSERT INTO tb_introduction_broadcast_file
+	(
+	division,
+	device,
+	code,
+	file_url,
+	file_name,
+	reg_id,
+	param_name
+	)
+	VALUES
+	(
+	#{division},
+	#{device},
+	#{code},
+	#{file_url},
+	#{file_name},
+	#{reg_id},
+	#{param_name})
+	</insert>	
+	
+	<select id="broadFileSelect" resultType="hashmap" parameterType="hashmap">
+	SELECT seq,
+	    division,
+	    device,
+	    code,
+	    file_url, 
+	    file_name,
+	    del_yn,
+	    reg_id,
+	    reg_date,
+	    param_name
+	FROM tb_introduction_broadcast_file
+	where 1=1 
+	and del_yn = 'N'
+	and division = #{division}
+	</select>
+	
+	<update id="broadFileUpdate" parameterType="hashmap">
+	UPDATE tb_introduction_broadcast_file
+	SET
+	del_yn = 'Y'
+	WHERE division = #{division}
+	</update>
+	
+	
+	<insert id="broadSubInsert"  parameterType="hashmap">
+	INSERT INTO tb_introduction_broadcast_sub
+	(
+	division,
+	year,
+	title_e,
+	title_k,
+	introduce_e,
+	introduce_k,
+	broad_time,
+	thumbnail_pc_url,
+	thumbnail_pc_name,
+	thumbnail_mobile_url,
+	thumbnail_mobile_name,
+	reg_id)
+	VALUES
+	(
+	#{division},
+	#{year},
+	#{title_e},
+	#{title_k},
+	#{introduce_e},
+	#{introduce_k},
+	#{broad_time},
+	#{thumbnail_pc_url},
+	#{thumbnail_pc_name},
+	#{thumbnail_mobile_url},
+	#{thumbnail_mobile_name},
+	#{reg_id})
+	</insert>	
+	
+	<select id="broadSubSelect" resultType="hashmap" parameterType="hashmap">
+	SELECT seq,
+	    division,
+	    year,
+	    title_e,
+	    title_k,
+	    introduce_e,
+	    introduce_k,
+	    broad_time,
+	    thumbnail_pc_url,
+	    thumbnail_pc_name,
+	    thumbnail_mobile_url,
+	    thumbnail_mobile_name,
+	    reg_id,
+	    reg_date,
+	    del_yn
+	FROM tb_introduction_broadcast_sub
+	where 1=1 
+	and del_yn = 'N'
+	and division = #{division}
+	</select>
+	
+	<update id="broadSubUpdate" parameterType="hashmap">
+	UPDATE tb_introduction_broadcast_sub
+	SET
+	del_yn = 'Y'
+	WHERE division = #{division}
+	</update>	
+
+</mapper>
